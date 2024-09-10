@@ -279,7 +279,8 @@ if __name__ == '__main__':
     data = {}
     list_of_pathways = []
     list_of_samples = []
-    theme_bw = "theme_bw.mplstyle"
+    script_dir = os.path.dirname(os.path.realpath(__file__))
+    theme_bw = os.path.join(script_dir,"theme_bw.mplstyle")
     plt.style.use(theme_bw)
     for fi in files:
         df = pd.read_csv(fi,delimiter=',')
