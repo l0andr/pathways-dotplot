@@ -2,7 +2,8 @@
 
 Pathway-Dotplots is a Python-based tool for generating dot plots from pathway analysis results, with hierarchical clustering support and several plot customization options. The tool is primarily intended for visualizing the enrichment of biological pathways across different samples using data such as p-values, normalized enrichment scores (NES), and more.
 
-![image](https://github.com/user-attachments/assets/b3fd7d81-0c3d-4013-88cc-110b52fa785e)
+![image](https://github.com/user-attachments/assets/bcfa4daa-32d0-476d-a32f-14b5a435465c)
+
 
 
 ## Features
