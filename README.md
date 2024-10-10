@@ -57,6 +57,10 @@ pathway: The name of the pathway. <br>
 NES: Normalized Enrichment Score (or any other enrichment score).<br>
 padj: Adjusted p-value.<br>
 
-Output
+## Output
 The tool generates a dot plot in PDF format for each sample, displaying pathways across samples, where the size or color of the dots reflects pathway enrichment or p-value.<br>
+
+## Autor
+
+Developed by Andrey Loginov in  <a href="https://www.igs.umaryland.edu/labs/gaykalova/">Gaykalova Lab </a>
 
