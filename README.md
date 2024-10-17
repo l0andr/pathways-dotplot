@@ -46,7 +46,8 @@ Options: <br>
 Options: <br>
 * cluster: Sort pathways using hierarchical clustering.  
 * first_enrich: Sort pathways based on the first sample's enrichment score.  
-* enrich_threshold: Sort pathways using enrichment score and p-value threshold.  
+* enrich_threshold: Sort pathways using enrichment score and p-value threshold.
+
 --pvalue_threshold: Threshold for p-value (default: 0.1). <br>
 --show: If specified, the plot will be displayed in the GUI. <br>
 --imgname: Filename for the output plot (default: dot_plot). <br>
