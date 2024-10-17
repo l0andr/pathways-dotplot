@@ -253,8 +253,9 @@ if __name__ == '__main__':
     parser.add_argument("--plot_type", help="Type of plot. Options:"
                                             "'size' - size of dot will be -log10(pvalue), "
                                             "'invsize' - size of dot will be proportional to enrichment, "
-                                            "'gray' dots with pvalue more than threshold (default 0.05) will "
-                                           "be ploted in gray color", type=str,
+                                            "'gray' - dots with pvalue more than threshold (default 0.05) will be ploted in gray color"
+                                            "'white - dots with pvalue more than threshold (default 0.05) will not be ploted",
+                                            type=str,
                         default='size')
     parser.add_argument("--pathway_sort", help="Type of pathways sort. Supported options 'cluster',"
                                               "'first_enrich','enrich_threshold'", type=str,
