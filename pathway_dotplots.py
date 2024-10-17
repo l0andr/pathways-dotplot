@@ -90,6 +90,7 @@ def dotplot(data, list_of_samples, pvalue_column, pvalue_threshold, plot_type, s
         else:
             accept_pathways.append(pw)
     set_of_path_ways = accept_pathways
+    size_point_devider = 1.6
     for smp in list_of_samples:
         j = 0
         df = data[smp]
@@ -104,15 +105,15 @@ def dotplot(data, list_of_samples, pvalue_column, pvalue_threshold, plot_type, s
                 print(f" {smp} have more than one pathway {pw}. Will be skipped")
                 continue
             if plot_type == "size":
-                msize_inv = -np.log10(msize.iloc[0])
+                msize_inv = -np.log10(msize.iloc[0]) / max_size 
                 mcolor = df[df['pathway'] == pw][enrich_column].iloc[0]
                 bc, rc = (abs(mcolor) / abs(min_color), 0) if mcolor < 0 else (0, abs(mcolor) / abs(max_color))
-                plt.scatter(i, j, s=50 * (msize_inv) / 1.6, color=(rc, 0.0, bc), alpha=1)
+                plt.scatter(i, j, s=50 * (msize_inv) / size_point_devider, color=(rc, 0.0, bc), alpha=1)
             elif plot_type == "invsize":
                 msize_inv = msize.iloc[0] / max_size * 25
                 mcolor =  -np.log10(df[df['pathway'] == pw][pvalue_column].iloc[0]) / -np.log10(min_color)
                 bc, rc = (abs(mcolor) , 0) if mcolor < 0 else (0, abs(mcolor))
-                plt.scatter(i, j, s=25 * (msize_inv) , color=(rc, 0.0, bc), alpha=1)
+                plt.scatter(i, j, s=50 * (msize_inv) / size_point_devider, color=(rc, 0.0, bc), alpha=1)
             elif plot_type == "gray":
                 msize_inv = 5  # -np.log10(msize.iloc[0])
                 mcolor = df[df['pathway'] == pw][enrich_column].iloc[0]
@@ -168,9 +169,8 @@ def dotplot(data, list_of_samples, pvalue_column, pvalue_threshold, plot_type, s
                                                                                                       marker='o',
                                                                                                       color='w',
                                                                                                       label=f'10^{np.log10(labels2_text[i]):.2f}',
-                                                                                                      markersize=1.3 * -np.log10(
-                                                                                                          labels2_text[
-                                                                                                              i]) / 1.3,
+                                                                                                      markersize=sqrt(50) * -np.log10(
+                                                                                                          labels2_text[i]) / max_size  / size_point_devider,
                                                                                                       markerfacecolor='#FF0000')
                                                                                                for i, color in
                                                                                                enumerate(colors)]
