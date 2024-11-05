@@ -25,7 +25,9 @@ pip install -r requirements.txt
 ```
 
 ## Usage
-  The tool processes input CSV files containing pathway enrichment results and generates dot plots based on the selected options.
+  The tool processes input CSV files containing gene set enrichment analysis results and generates dot plots based on the selected options.
+  
+  Input .csv files must have columns named pathway, padj and NES (standard fgsea output)
 
 ## Example command:
 ```bash
@@ -49,6 +51,7 @@ Options: <br>
 * enrich_threshold: Sort pathways using enrichment score and p-value threshold.
 
 --pvalue_threshold: Threshold for p-value (default: 0.1). <br>
+--nes_threshold: Threshold for abs(NES) (default 0).
 --show: If specified, the plot will be displayed in the GUI. <br>
 --imgname: Filename for the output plot (default: dot_plot). <br>
 Input Format

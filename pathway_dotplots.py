@@ -33,7 +33,7 @@ def hierarchical_clustering(data, max_d=50, cluster_columns=None):
     sorted_df = merged_df.sort_values(by='cluster',ascending=True)
     return sorted_df, clusters
 
-def dotplot(data, list_of_samples, pvalue_column, pvalue_threshold, plot_type, set_of_path_ways):
+def dotplot(data, list_of_samples, pvalue_column, pvalue_threshold, plot_type, set_of_path_ways,nes_threshold):
     '''
     Create dotplot for pathway analysis
     :param data:
@@ -83,7 +83,9 @@ def dotplot(data, list_of_samples, pvalue_column, pvalue_threshold, plot_type, s
     for pw in set_of_path_ways:
         empty_num = 0
         for smp in list_of_samples:
-            below_threshold = data[smp][data[smp]['pathway'] == pw][pvalue_column] < pvalue_threshold
+            below_Nthreshold = abs(data[smp][data[smp]['pathway'] == pw]['NES']) > nes_threshold
+            below_Pthreshold = data[smp][data[smp]['pathway'] == pw][pvalue_column] < pvalue_threshold
+            below_threshold = below_Pthreshold*below_Nthreshold
             empty_num += int(below_threshold)
         if empty_num == 0:
             skip_pathways.append(pw)
@@ -105,7 +107,7 @@ def dotplot(data, list_of_samples, pvalue_column, pvalue_threshold, plot_type, s
                 print(f" {smp} have more than one pathway {pw}. Will be skipped")
                 continue
             if plot_type == "size":
-                msize_inv = -np.log10(msize.iloc[0]) / max_size 
+                msize_inv = -np.log10(msize.iloc[0]) / max_size
                 mcolor = df[df['pathway'] == pw][enrich_column].iloc[0]
                 bc, rc = (abs(mcolor) / abs(min_color), 0) if mcolor < 0 else (0, abs(mcolor) / abs(max_color))
                 plt.scatter(i, j, s=50 * (msize_inv) / size_point_devider, color=(rc, 0.0, bc), alpha=1)
@@ -169,8 +171,8 @@ def dotplot(data, list_of_samples, pvalue_column, pvalue_threshold, plot_type, s
                                                                                                       marker='o',
                                                                                                       color='w',
                                                                                                       label=f'10^{np.log10(labels2_text[i]):.2f}',
-                                                                                                      markersize=sqrt(50) * -np.log10(
-                                                                                                          labels2_text[i]) / max_size  / size_point_devider,
+                                                                                                      markersize=np.sqrt(50 * -np.log10(
+                                                                                                          labels2_text[i])) / max_size  / size_point_devider,
                                                                                                       markerfacecolor='#FF0000')
                                                                                                for i, color in
                                                                                                enumerate(colors)]
@@ -266,6 +268,8 @@ if __name__ == '__main__':
                         action='store_true')
     parser.add_argument("--imgname", help="filename for output plot", type=str,
                         default='dot_plot')
+    parser.add_argument("--nes_threshold",help="abs(NES) threshold ",type=float,
+                        default=0.0)
 
     args = parser.parse_args()
     indir = args.indir
@@ -275,6 +279,7 @@ if __name__ == '__main__':
     show = args.show
     pvalue_column = 'padj'
     pvalue_threshold = args.pvalue_threshold
+    nes_threshold = args.nes_threshold
     files = glob.glob(f"{indir}/{args.input_file_mask}")
     mandatory_columns = ['pathway','NES',pvalue_column]
     data = {}
@@ -308,7 +313,7 @@ if __name__ == '__main__':
         set_of_path_ways = sort_order_data.sort_values(by=['pval_thres','NES'],ascending=True)['pathway'].to_list()
     else:
         raise RuntimeError(f"Unknown pathway sort type:{args.pathway_sort}")
-    fig = dotplot(data, list_of_samples, pvalue_column, pvalue_threshold, plot_type, set_of_path_ways)
+    fig = dotplot(data, list_of_samples, pvalue_column, pvalue_threshold, plot_type, set_of_path_ways,nes_threshold)
     if show:
         plt.show()
     else:
