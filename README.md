@@ -2,8 +2,7 @@
 
 Pathway-Dotplots is a Python-based tool for generating dot plots from pathway analysis results, with hierarchical clustering support and several plot customization options. The tool is primarily intended for visualizing the enrichment of biological pathways across different samples using data such as p-values, normalized enrichment scores (NES), and more.
 
-![image](https://github.com/user-attachments/assets/bcfa4daa-32d0-476d-a32f-14b5a435465c)
-
+![image](https://github.com/user-attachments/assets/1c9bd176-f7af-488f-8141-4b507d303a5b)
 
 
 ## Features
@@ -25,7 +24,9 @@ pip install -r requirements.txt
 ```
 
 ## Usage
-  The tool processes input CSV files containing pathway enrichment results and generates dot plots based on the selected options.
+  The tool processes input CSV files containing gene set enrichment analysis results and generates dot plots based on the selected options.
+  
+  Input .csv files must have columns named pathway, padj and NES (standard fgsea output)
 
 ## Example command:
 ```bash
@@ -49,6 +50,7 @@ Options: <br>
 * enrich_threshold: Sort pathways using enrichment score and p-value threshold.
 
 --pvalue_threshold: Threshold for p-value (default: 0.1). <br>
+--nes_threshold: Threshold for abs(NES) (default 0). <br>
 --show: If specified, the plot will be displayed in the GUI. <br>
 --imgname: Filename for the output plot (default: dot_plot). <br>
 Input Format
