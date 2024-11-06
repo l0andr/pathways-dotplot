@@ -50,7 +50,7 @@ Options: <br>
 * enrich_threshold: Sort pathways using enrichment score and p-value threshold.
 
 --pvalue_threshold: Threshold for p-value (default: 0.1). <br>
---nes_threshold: Threshold for abs(NES) (default 0).
+--nes_threshold: Threshold for abs(NES) (default 0). <br>
 --show: If specified, the plot will be displayed in the GUI. <br>
 --imgname: Filename for the output plot (default: dot_plot). <br>
 Input Format
